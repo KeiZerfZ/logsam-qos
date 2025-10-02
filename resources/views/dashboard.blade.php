@@ -54,7 +54,7 @@
             <table class="min-w-full leading-normal">
                 <thead>
                     <tr class="bg-gray-200 text-left text-gray-600 uppercase text-sm">
-                        <th class="py-3 px-5">ID</th>
+                        <th class="py-3 px-5">No.</th>
                         <th class="py-3 px-5">Name</th>
                         <th class="py-3 px-5">Timestamp</th>
                         <th class="py-3 px-5 text-center">Delay (ms)</th>
@@ -68,7 +68,7 @@
                 <tbody class="text-gray-700">
                     @forelse ($logs as $log)
                         <tr class="border-b border-gray-200 hover:bg-gray-50">
-                            <td class="py-3 px-5">{{ $log->id }}</td>
+                            <td class="py-3 px-5">{{ $loop->iteration }}</td>
                             <td class="py-3 px-5">{{ $log->name }}</td>
                             <td class="py-3 px-5">{{ $log->created_at->format('Y-m-d H:i:s') }}</td>
                             <td class="py-3 px-5 text-center">{{ $log->delay_median_ms }}</td>
@@ -77,9 +77,9 @@
                             <td class="py-3 px-5 text-center font-bold text-indigo-600">{{ $log->score_qos }}</td>
                             <td class="py-3 px-5 text-center">
                                 <span class="relative inline-block px-3 py-1 font-semibold leading-tight
-                                    @if($log->category_qos == 'Sangat Baik') text-green-900 @elseif($log->category_qos == 'Baik') text-blue-900 @elseif($log->category_qos == 'Cukup') text-yellow-900 @else text-red-900 @endif">
+                                    @if($log->category_qos == 'Sangat Baik') text-green-900 @elseif($log->category_qos == 'Baik') text-blue-900 @elseif($log->category_qos == 'Cukup') text-yellow-900 @elseif($log->category_qos == 'Buruk') text-red-900 @else text-orange-900 @endif">
                                     <span aria-hidden class="absolute inset-0 
-                                        @if($log->category_qos == 'Sangat Baik') bg-green-200 @elseif($log->category_qos == 'Baik') bg-blue-200 @elseif($log->category_qos == 'Cukup') bg-yellow-200 @else bg-red-200 @endif
+                                        @if($log->category_qos == 'Sangat Baik') bg-green-200 @elseif($log->category_qos == 'Baik') bg-blue-200 @elseif($log->category_qos == 'Cukup') bg-yellow-200 @elseif($log->category_qos == 'Buruk') bg-red-200 @else bg-red-200 @endif
                                         opacity-50 rounded-full"></span>
                                     <span class="relative">{{ $log->category_qos }}</span>
                                 </span>
@@ -167,6 +167,7 @@
                     .then(data => {
                         if (data.error) throw new Error(data.error);
                         
+                        // Di sini kita pakai ID asli dari database untuk judul modal
                         modalLogId.textContent = data.log.id;
                         
                         const contentHtml = `
@@ -203,3 +204,4 @@
     </script>
 </body>
 </html>
+

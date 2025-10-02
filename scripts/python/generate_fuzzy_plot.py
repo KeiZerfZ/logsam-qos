@@ -1,7 +1,7 @@
 import sys
 import numpy as np
 import matplotlib
-matplotlib.use('Agg') # WAJIB ADA DI ATAS
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import io
 import base64
